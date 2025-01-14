@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WWE Raw</title>
+  <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css">
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+  <script src="https://cdn.plyr.io/3.7.8/plyr.polyfilled.js"></script>
+  <style>
+    body {
+      margin: 0;
+      background-color: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    #player {
+      max-width: 90%;
+      max-height: 70%;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+    .footer a {
+      color: #1e90ff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
+    button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #1e90ff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0077cc;
+    }
+  </style>
+</head>
+<body>
+  <video id="player" controls></video>
+
+  <div class="footer">
+    <button onclick="createdBy()">Created by</button>
+    <button onclick="joinTelegramChannel()">Join My Channel</button>
+  </div>
+
+  <script>
+    const video = document.getElementById('player');
+    const source = 'https://dai.google.com/ssai/event/nYSuS-LZSbapsC12DoZBmw/master.m3u8';
+
+    if (Hls.isSupported()) {
+      const hls = new Hls();
+      hls.loadSource(source);
+      hls.attachMedia(video);
+      hls.on(Hls.Events.MANIFEST_PARSED, function () {
+        video.play();
+      });
+    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+      video.src = source;
+      video.addEventListener('loadedmetadata', function () {
+        video.play();
+      });
+    }
+
+    const player = new Plyr(video, {
+      controls: [
+        'play-large',
+        'play',
+        'progress',
+        'current-time',
+        'mute',
+        'volume',
+        'settings',
+        'fullscreen'
+      ],
+      settings: ['quality', 'speed', 'loop'],
+      autoplay: true,
+    });
+
+    function createdBy() {
+      window.open('https://t.me/BhavyPatel77', '_blank');
+    }
+
+    function joinTelegramChannel() {
+      window.open('https://t.me/BhavyaPatel77', '_blank');
+    }
+  </script>
+</body>
+</html>
